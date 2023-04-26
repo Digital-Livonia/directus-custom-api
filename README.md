@@ -32,5 +32,7 @@ GET /api/field_name?subfield=subfield1&subfield=subfield2&lang=ee-ET
 }
 ]
 ```
+
 #### Error Handling
+
 If the field parameter is not provided or is invalid, the API will respond with a 400 Bad Request status code.
