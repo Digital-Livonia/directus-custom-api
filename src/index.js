@@ -40,7 +40,8 @@ export default {
         const collectionData = await fieldsService.readByQuery({
           filter: { collection: { _eq: collection } },
         });
-        return collectionData.map(({ field }) => field);
+        //return collectionData.map(({ field }) => field);
+        return collectionData
       }
 
       // Get the many collection for a given field
@@ -58,7 +59,8 @@ export default {
         return returnLabel
       }
 
-      const dateTimeFields = await getCollectionData("date_time");
+      const dateTimeFields = await getCollectionData("date_time")
+      const dateTimeFieldsArray = dateTimeFields.map(({ field }) => field);
 
       const labelArray = [];
       for (const sub of subfieldArray) {
@@ -72,7 +74,7 @@ export default {
           const label = getTranslation(translations, lang);
           const obj = { [sub]: label };
           labelArray.push(obj);
-        } else if (dateTimeFields.includes(sub)) {
+        } else if (dateTimeFieldsArray.includes(sub)) {
           const { translations } =
           dateTimeFields.find(({ field }) => field === sub) || {};
           const label = getTranslation(translations, lang);
@@ -93,7 +95,7 @@ export default {
       }
 
       res.send(labelArray);
-      next();
+      //next();
     });
   },
 };
