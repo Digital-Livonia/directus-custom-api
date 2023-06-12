@@ -72,24 +72,24 @@ export default {
               ({ field }) => field === sub
           ) || {};
           const label = getTranslation(translations, lang);
-          const obj = { [sub]: label };
+          const obj = { [sub]: {label: label,  fieldPath:`options/${sub}`} };
           labelArray.push(obj);
         } else if (dateTimeFieldsArray.includes(sub)) {
           const { translations } =
           dateTimeFields.find(({ field }) => field === sub) || {};
           const label = getTranslation(translations, lang);
-          const obj = { [sub]: label };
+          const obj = { [sub]: {label: label, fieldPath: `date_time/${sub}`}};
           labelArray.push(obj);
         } else {
           const manyCollection = await getManyCollection(field);
           const collectionData = await fieldsService.readByQuery({
             filter: { collection: { _eq: manyCollection } },
           });
-          const { translations } = collectionData.find(
+          const { translations} = collectionData.find(
               ({ field }) => field === sub
           ) || {};
           const label = translations ? getTranslation(translations, lang) : null
-          const obj = { [sub]: label};
+          const obj = { [sub]: {label: label, fieldPath: `${manyCollection}/${sub}`}};
           labelArray.push(obj);
         }
       }
